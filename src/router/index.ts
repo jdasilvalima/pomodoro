@@ -20,7 +20,7 @@ const router = createRouter({
     {
       path: '/modern',
       name: 'modern',
-      component: () => import('@/views/ModernPomodoroView.vue)
+      component: () => import('@/views/ModernPomodoroView.vue')
     }
   ]
 })
