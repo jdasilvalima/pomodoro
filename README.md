@@ -1,6 +1,14 @@
 # pomodoro
 
-This template should help get you started developing with Vue 3 in Vite.
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Vue3.js](https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vue.js&logoColor=4FC08D)
+
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/jdasilvalima/pomodoro?style=for-the-badge)
+[![GitHub last commit](https://img.shields.io/github/last-commit/jdasilvalima/pomodoro?style=for-the-badge)](https://github.com/jdasilvalima/pomodoro/commits)
+
+## Project description
+
+Create a Pomodoro timer using various templates.
 
 ## Recommended IDE Setup
 
