@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onUnmounted, onMounted } from 'vue';
+import { ref, onUnmounted, onMounted, watch } from 'vue';
 
 // will be props
 let pomodoro = ref({
@@ -18,9 +18,11 @@ let referenceTime = ref<{
     sec: number;
   }[]> ([]);
 
+let indexTimer = ref<number>(0);
+
 onMounted (() => {
   getAllTimer();
-  // start countdown
+  startCountDown();
 })
 
 function getAllTimer() {
@@ -29,9 +31,9 @@ function getAllTimer() {
 }
 
 function duplicatePomodoroTimer() {
-  const timeToAdd = [{min: pomodoro.value.workDuration, sec: 0}, {min: pomodoro.value.breakDuration, sec: 0}];
+  const timeToDuplicate = [{min: pomodoro.value.workDuration, sec: 0}, {min: pomodoro.value.breakDuration, sec: 0}];
   for (let i = 0; i < pomodoro.value.repeatTimes; i++) {
-    referenceTime.value.push(...timeToAdd);
+    referenceTime.value.push(...timeToDuplicate);
   }
 }
 
@@ -41,10 +43,35 @@ function addIntroAndEndPomodoro() {
   referenceTime.value.push(introductionEndingTime);
 }
 
-// foreach element in referenceTime.value
-// modify timer.value
-// countdown of the element 
 
+function startCountDown() {
+  countdown(referenceTime.value[indexTimer.value]);
+}
+
+watch(indexTimer, (newValue) => {
+  if(newValue <= referenceTime.value.length)
+    countdown(referenceTime.value[newValue]);
+})
+
+function countdown({ min, sec}: { min: number, sec: number }) {
+  let totalSeconds = min * 60 + sec;
+
+  const interval = setInterval(() => {
+    if (totalSeconds < 0) {
+      clearInterval(interval);
+      indexTimer.value ++;
+      return;
+    }
+
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+
+    timer.value.minutesDisplay = (minutes < 10 ? '0' + minutes : minutes).toString();
+    timer.value.secondsDisplay = (seconds < 10 ? '0' + seconds : seconds).toString();
+
+    totalSeconds--;
+  }, 1000);
+}
 
 //setInterval
 //onUnmounted(() => clearInterval(interval));
