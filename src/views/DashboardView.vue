@@ -1,23 +1,33 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { useTimerStore } from '@/stores/timer';
 
-const workDuration = ref('25');
-const breakDuration = ref('5');
-const repeatTimes = ref(1);
+const router = useRouter();
+const timerStore = useTimerStore();
+
+const template = ref<string>("/modern");
 
 function handlePomodoro() {
-  console.log("Form submitted!");
+  router.push(template.value);
 };
 </script>
 
 <template>
   <div class="dashboard">
-    <h2>DASHBOARD</h2>
+    <h2>POMODORO DASHBOARD</h2>
   
     <form @submit.prevent="handlePomodoro">
       <div class="input-container">
+        <label for="workDuration">Template:</label>
+        <select id="workDuration" v-model="template">
+          <option value="/modern">Modern</option>
+        </select>
+      </div>
+
+      <div class="input-container">
         <label for="workDuration">Work Duration:</label>
-        <select id="workDuration" v-model="workDuration">
+        <select id="workDuration" v-model="timerStore.pomodoro.workDuration">
           <option value="25">25 minutes</option>
           <option value="45">45 minutes</option>
           <option value="50">50 minutes</option>
@@ -26,7 +36,7 @@ function handlePomodoro() {
     
       <div class="input-container">
         <label for="breakDuration">Break Duration:</label>
-        <select id="breakDuration" v-model="breakDuration">
+        <select id="breakDuration" v-model="timerStore.pomodoro.breakDuration">
           <option value="5">5 minutes</option>
           <option value="10">10 minutes</option>
           <option value="15">15 minutes</option>
@@ -35,7 +45,7 @@ function handlePomodoro() {
     
       <div class="input-container">
         <label for="repeatTimes">Repeat Times:</label>
-        <input type="number" id="repeatTimes" v-model="repeatTimes" min="1" max="10">
+        <input type="number" id="repeatTimes" v-model="timerStore.pomodoro.repeatTimes" min="1" max="10">
       </div>
 
       <button type="submit">Submit</button>

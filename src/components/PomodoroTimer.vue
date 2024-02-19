@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import { ref, onUnmounted, onMounted, watch } from 'vue';
+import { ref, onMounted, onUnmounted, watch } from 'vue';
+import { useTimerStore } from '@/stores/timer';
 
-// will be props
-let pomodoro = ref({
-  workDuration: 25,
-  breakDuration: 5,
-  repeatTimes: 2
-});
+const timerStore = useTimerStore();
+
+let interval: number;
 
 let timer = ref({
   minutesDisplay: '00',
@@ -31,8 +29,8 @@ function getAllTimer() {
 }
 
 function duplicatePomodoroTimer() {
-  const timeToDuplicate = [{min: pomodoro.value.workDuration, sec: 0}, {min: pomodoro.value.breakDuration, sec: 0}];
-  for (let i = 0; i < pomodoro.value.repeatTimes; i++) {
+  const timeToDuplicate = [{min: timerStore.pomodoro.workDuration, sec: 0}, {min: timerStore.pomodoro.breakDuration, sec: 0}];
+  for (let i = 0; i < timerStore.pomodoro.repeatTimes; i++) {
     referenceTime.value.push(...timeToDuplicate);
   }
 }
@@ -56,7 +54,7 @@ watch(indexTimer, (newValue) => {
 function countdown({ min, sec}: { min: number, sec: number }) {
   let totalSeconds = min * 60 + sec;
 
-  const interval = setInterval(() => {
+  interval = setInterval(() => {
     if (totalSeconds < 0) {
       clearInterval(interval);
       indexTimer.value ++;
@@ -73,10 +71,13 @@ function countdown({ min, sec}: { min: number, sec: number }) {
   }, 1000);
 }
 
-//setInterval
-//onUnmounted(() => clearInterval(interval));
+onUnmounted(() => {
+  clearInterval(interval);
+})
 </script>
 
 <template>
-  {{ timer.minutesDisplay }} : {{ timer.secondsDisplay }}
+  <div class="timer-display">
+    {{ timer.minutesDisplay }} : {{ timer.secondsDisplay }}
+  </div>
 </template>

@@ -5,3 +5,9 @@ import PomodoroTimer from '@/components/PomodoroTimer.vue';
 <template>
   <PomodoroTimer/>
 </template>
+
+<style>
+.timer-display {
+  font-size: 10rem;
+}
+</style>
