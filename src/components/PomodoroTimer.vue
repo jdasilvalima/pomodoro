@@ -4,7 +4,7 @@ import { useTimerStore } from '@/stores/timer';
 
 const timerStore = useTimerStore();
 
-let interval;
+let interval: any;
 
 let timer = ref({
   minutesDisplay: '00',
