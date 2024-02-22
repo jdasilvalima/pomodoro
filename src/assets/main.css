@@ -1,3 +1,15 @@
+@font-face {
+  font-family: 'Dahlia';
+  src: url('./font/dahlia-font/dahlia-regular.otf') format('opentype'),
+       url('./font/dahlia-font/dahlia-regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Allaina';
+  src: url('./font/allaina-bold-font/Allaina-Regular.otf') format('opentype'),
+       url('./font/allaina-bold-font/Allaina-Regular.ttf') format('ttf');
+}
+
 *,
 *::before,
 *::after {
@@ -10,4 +22,5 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: sans-serif;
 }

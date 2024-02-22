@@ -8,8 +8,12 @@ const timerStore = useTimerStore();
 
 const template = ref<string>("/modern");
 
+const formPomodoro = ref('');
+
 function handlePomodoro() {
+  console.log('handlePomodoro method');
   router.push(template.value);
+  formPomodoro.value = '';
 };
 </script>
 
@@ -48,7 +52,11 @@ function handlePomodoro() {
         <input type="number" id="repeatTimes" v-model="timerStore.pomodoro.repeatTimes" min="1" max="10">
       </div>
 
-      <button type="submit">Submit</button>
+      <div class="input-container">
+        <input type="text" v-model="formPomodoro" @keyup.enter="handlePomodoro" />
+      </div>
+
+      <button type="button" @click="handlePomodoro">Submit</button>
     </form>
 
   </div>

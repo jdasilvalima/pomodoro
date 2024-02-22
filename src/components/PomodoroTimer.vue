@@ -78,6 +78,9 @@ onUnmounted(() => {
 
 <template>
   <div class="timer-display">
-    {{ timer.minutesDisplay }} : {{ timer.secondsDisplay }}
+    {{ timer.minutesDisplay }}:{{ timer.secondsDisplay }}
   </div>
 </template>
+
+<style scoped>
+</style>

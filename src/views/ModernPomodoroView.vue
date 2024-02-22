@@ -9,5 +9,7 @@ import PomodoroTimer from '@/components/PomodoroTimer.vue';
 <style>
 .timer-display {
   font-size: 10rem;
+  font-family: monospace, sans-serif;
 }
+
 </style>
