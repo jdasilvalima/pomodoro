@@ -18,6 +18,8 @@ let referenceTime = ref<{
 
 let indexTimer = ref<number>(0);
 
+const emit = defineEmits(['updatedIndexTimer']);
+
 onMounted (() => {
   getAllTimer();
   startCountDown();
@@ -58,6 +60,7 @@ function countdown({ min, sec}: { min: number, sec: number }) {
     if (totalSeconds < 0) {
       clearInterval(interval);
       indexTimer.value ++;
+      emit('updatedIndexTimer', indexTimer.value);
       return;
     }
 
@@ -77,9 +80,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="timer-display">
-    {{ timer.minutesDisplay }}:{{ timer.secondsDisplay }}
-  </div>
+  {{ timer.minutesDisplay }}:{{ timer.secondsDisplay }}
 </template>
 
 <style scoped>
